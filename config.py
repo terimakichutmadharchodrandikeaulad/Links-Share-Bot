@@ -62,7 +62,7 @@ ABOUT = (
 
 ABOUT_TXT = (
     "<b>"
-    "›› Owner: <a href='https://t.me/cosmic_freak'>Raj</a>\n"
+    "›› Owner: <a href='https://t.me/Teamrajweb'>Raj</a>\n"
     "›› Language: Python 3\n"
     "›› Library: Pyrogram v2\n"
     "›› Database: MongoDB\n"
