@@ -1,90 +1,106 @@
-# +++ Modified By [telegram username: @Codeflix_Bots
+# +++ Modified By @Codeflix_Bots
+
 import os
-from os import environ
+import re
 import logging
 from logging.handlers import RotatingFileHandler
 
-# Recommended
-TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "8225598276:AAGH5UsdyQvGvEtQFHJztW4gm0fNpPZo22M")
-APP_ID = int(os.environ.get("APP_ID", "23562992"))
-API_HASH = os.environ.get("API_HASH", "e070a310ca3e76ebc044146b9829237c")
+# Regex
+id_pattern = re.compile(r"-?\d+")
 
-# Main
-OWNER_ID = int(os.environ.get("OWNER_ID", "7524032836"))
-PORT = os.environ.get("PORT", "8080")
+# ================= BOT CREDENTIALS =================
 
-# Database
-DB_URI = os.environ.get("DB_URI", "mongodb+srv://rj5706603:O95nvJYxapyDHfkw@cluster0.fzmckei.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-DB_NAME = os.environ.get("DB_NAME", "link")
+TG_BOT_TOKEN = "8225598276:AAGH5UsdyQvGvEtQFHJztW4gm0fNpPZo22M"
+APP_ID = 23562992
+API_HASH = "e070a310ca3e76ebc044146b9829237c"
 
-#Auto approve 
-CHAT_ID = [int(app_chat_id) if id_pattern.search(app_chat_id) else app_chat_id for app_chat_id in environ.get('CHAT_ID', '').split()] # dont change anything 
-TEXT = environ.get("APPROVED_WELCOME_TEXT", "<b>{mention},\n\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ {title} ɪs ᴀᴘᴘʀᴏᴠᴇᴅ.\n\‣ ᴘᴏᴡᴇʀᴇᴅ ʙʏ @narzoxbot</b>")
-APPROVED = environ.get("APPROVED_WELCOME", "on").lower()
+OWNER_ID = 7524032836
+PORT = 8080
 
-# Default
-TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "40"))
-#--- ---- ---- --- --- --- - -- -  - - - - - - - - - - - --  - -
+# ================= DATABASE =================
 
-# Start pic
+DB_URI = "mongodb+srv://rj5706603:O95nvJYxapyDHfkw@cluster0.fzmckei.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+DB_NAME = "link"
+
+DATABASE_CHANNEL = -1001234567890  # CHANGE if needed
+
+# ================= AUTO APPROVE =================
+
+CHAT_ID = []
+TEXT = (
+    "<b>{mention},\n\n"
+    "ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ {title} ɪs ᴀᴘᴘʀᴏᴠᴇᴅ.\n\n"
+    "‣ ᴘᴏᴡᴇʀᴇᴅ ʙʏ @narzoxbot</b>"
+)
+APPROVED = "on"
+
+# ================= WORKERS =================
+
+TG_BOT_WORKERS = 40
+
+# ================= START =================
+
 START_PIC = "https://telegra.ph/file/f3d3aff9ec422158feb05-d2180e3665e0ac4d32.jpg"
-START_IMG = "https://telegra.ph/file/f3d3aff9ec422158feb05-d2180e3665e0ac4d32.jpg"
-# Messages
-START_MSG = os.environ.get("START_MESSAGE", "<b>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴀᴅᴠᴀɴᴄᴇᴅ ʟɪɴᴋs sʜᴀʀɪɴɢ ʙᴏᴛ. ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ, ʏᴏᴜ ᴄᴀɴ sʜᴀʀᴇ ʟɪɴᴋs ᴀɴᴅ ᴋᴇᴇᴘ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟs sᴀғᴇ ғʀᴏᴍ ᴄᴏᴘʏʀɪɢʜᴛ ɪssᴜᴇs.\n\n<blockquote>‣ ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ : <a href='https://t.me/Teamrajweb>ʏᴀᴛᴏ</a></blockquote></b>")
-HELP = os.environ.get("HELP_MESSAGE", "<b><blockquote expandable>» Creator: <a href=https://t.me/Teamrajweb>Raj</a>\n» Our Community: <a href=https://t.me/narzoxbot> NARZO TEAM</a>\n» Anime Channel: <a href=https://t.me/narzoxbot>Anime Cruise</a>\n» Ongoing Anime: <a href=https://t.me/narzoxbot>tere raj papa ka chanenl </a>\n» Developer: <a href=https://t.me/onlymrabhi>abhi </a></b>")
-ABOUT = os.environ.get("ABOUT_MESSAGE", "<b><blockquote expandable>This bot is developed by Yato (@Teamrajweb) to securely share Telegram channel links with temporary invite links, protecting your channels from copyright issues.</b>")
 
-ABOUT_TXT = """<b>›› ᴄᴏᴍᴍᴜɴɪᴛʏ: <a href='https://t.me/narzoxbot>baad me </a>
-<blockquote expandable>›› ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/narzoxbot>Cʟɪᴄᴋ ʜᴇʀᴇ</a>
-›› ᴏᴡɴᴇʀ: <a href='https://t.me/cosmic_freak'>raj</a>
-›› ʟᴀɴɢᴜᴀɢᴇ: <a href='https://docs.python.org/3/'>Pʏᴛʜᴏɴ 3</a>
-›› ʟɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ ᴠ2</a>
-›› ᴅᴀᴛᴀʙᴀsᴇ: <a href='https://www.mongodb.com/docs/'>Mᴏɴɢᴏ ᴅʙ</a>
-›› ᴅᴇᴠᴇʟᴏᴘᴇʀ: @onlymrabhi</b></blockquote>""" # Bhosdiwalo agar developer me Yato ka username hataya to agli baar se koi repo public nhi krunga!!
+START_MSG = (
+    "<b>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴀᴅᴠᴀɴᴄᴇᴅ ʟɪɴᴋs sʜᴀʀɪɴɢ ʙᴏᴛ.\n\n"
+    "ᴛʜɪs ʙᴏᴛ ʜᴇʟᴘs ʏᴏᴜ sʜᴀʀᴇ ʟɪɴᴋs sᴀғᴇʟʏ.</b>"
+)
 
-CHANNELS_TXT = """<b>›› ᴀɴɪᴍᴇ ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/narzoxbot>ᴀɴɪᴍᴇ ᴄʀᴜɪsᴇ</a>
-<blockquote expandable>›› ᴍᴏᴠɪᴇs: <a href='https://t.me/narzoxbot>ᴍᴏᴠɪᴇғʟɪx sᴘᴏᴛ</a>
-›› ᴡᴇʙsᴇʀɪᴇs: <a href='https://t.me/narzoxbot>ᴡᴇʙsᴇʀɪᴇs ғʟɪx</a>
-›› ᴀᴅᴜʟᴛ ᴄʜᴀɴɴᴇʟs: <a href='https://t.me/narzoxbot>ᴄᴏʀɴʜᴜʙ</a>
-›› ᴍᴀɴʜᴡᴀ ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/narzoxbot>ᴘᴏʀɴʜᴡᴀ</a>
-›› ᴄᴏᴍᴍᴜɴɪᴛʏ: <a href='https://t.me/narzoxbot>ᴏᴛᴀᴋᴜғʟɪx</a>
-› ᴄᴏᴍᴍᴜɴɪᴛʏ: <a href='https://t.me/Teamrajweb   
+HELP = (
+    "<b>"
+    "» Creator: <a href='https://t.me/Teamrajweb'>Raj</a>\n"
+    "» Community: <a href='https://t.me/narzoxbot'>Narzo Team</a>\n"
+    "» Developer: <a href='https://t.me/onlymrabhi'>Abhi</a>"
+    "</b>"
+)
 
-#--- ---- ---- --- --- --- - -- -  - - - - - - - - - - - --  - -
-# Default
+ABOUT = (
+    "<b>This bot securely shares Telegram invite links "
+    "with auto revoke protection.</b>"
+)
+
+ABOUT_TXT = (
+    "<b>"
+    "›› Owner: <a href='https://t.me/cosmic_freak'>Raj</a>\n"
+    "›› Language: Python 3\n"
+    "›› Library: Pyrogram v2\n"
+    "›› Database: MongoDB\n"
+    "›› Developer: @onlymrabhi"
+    "</b>"
+)
+
+CHANNELS_TXT = (
+    "<b>"
+    "›› Anime: <a href='https://t.me/narzoxbot'>Anime Cruise</a>\n"
+    "›› Movies: <a href='https://t.me/narzoxbot'>MovieFlix</a>\n"
+    "›› Webseries: <a href='https://t.me/narzoxbot'>WebFlix</a>\n"
+    "›› Community: <a href='https://t.me/Teamrajweb'>Join Here</a>"
+    "</b>"
+)
+
+# ================= BOT TEXT =================
+
 BOT_STATS_TEXT = "<b>BOT UPTIME</b>\n{uptime}"
-USER_REPLY_TEXT = "⚠️ ғᴜᴄᴋ ʏᴏᴜ, ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴍʏ ᴍᴀsᴛᴇʀ. ɢᴏ ᴀᴡᴀʏ, ʙɪᴛᴄʜ 🙃!"
+USER_REPLY_TEXT = "⚠️ You are not authorized to use this command."
 
-# Logging
+# ================= ADMINS =================
+
+ADMINS = [OWNER_ID]
+
+# ================= LOGGING =================
+
 LOG_FILE_NAME = "links-sharingbot.txt"
-DATABASE_CHANNEL = int(os.environ.get("DATABASE_CHANNEL", "https://t.me/databasefilebots")) # Channel where user links are stored
-#--- ---- ---- --- --- --- - -- -  - - - - - - - - - - - --  - -
-
-try:
-    ADMINS = []
-    for x in (os.environ.get("ADMINS", "7524032836").split()):
-        ADMINS.append(int(x))
-except ValueError:
-    raise Exception("Your Admins list does not contain valid integers.")
-
-# Admin == OWNER_ID
-ADMINS.append(OWNER_ID)
-ADMINS.append(7524032836)
-
 
 logging.basicConfig(
     level=logging.INFO,
     format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
-    datefmt='%d-%b-%y %H:%M:%S',
     handlers=[
-        RotatingFileHandler(
-            LOG_FILE_NAME,
-            maxBytes=50000000,
-            backupCount=10
-        ),
+        RotatingFileHandler(LOG_FILE_NAME, maxBytes=50_000_000, backupCount=5),
         logging.StreamHandler()
     ]
 )
+
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 def LOGGER(name: str) -> logging.Logger:
